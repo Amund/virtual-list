@@ -5,13 +5,13 @@ Virtual list web component for creating selection lists with a large number of l
 ## Install
 
 ```
-$ npm i --save virtual-list
+$ npm i --save @amundsan/virtual-list
 ```
 
 ## Import
 
 ```js
-import 'virtual-list'
+import '@amundsan/virtual-list'
 ```
 
 ## Usage
