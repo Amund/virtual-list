@@ -1,0 +1,23 @@
+{
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": false,
+
+    // "prettier.documentSelectors": [
+    //   "**/*.{php,module,inc,install,test,profile,theme,info,twig}"
+    // ],
+
+    // scss lint
+    "scss.validate": false,
+    "stylelint.validate": ["css"],
+
+    // js lint
+    "eslint.alwaysShowStatus": true,
+    "eslint.lintTask.enable": true,
+
+    // scss/js fix
+    "editor.codeActionsOnSave": {
+        "source.fixAll.stylelint": "explicit",
+        "source.fixAll.eslint": "explicit"
+    }
+}

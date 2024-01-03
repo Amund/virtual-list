@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Web Component: virtual-list</title>
+
+        <link
+            rel="stylesheet"
+            href="https://fonts.cdnfonts.com/css/ubuntu?styles=169521,169523"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark-dimmed.min.css"
+        />
+
+        <style>
+            body {
+                font-family: 'Ubuntu', sans-serif;
+                font-weight: 300;
+                margin-inline: 1em;
+            }
+            h1,
+            h2,
+            h3 {
+                font-weight: 500;
+            }
+            main {
+                margin-inline: auto;
+                max-width: 46em;
+            }
+            section {
+                margin-block: 3em;
+            }
+            output {
+                display: flex;
+                gap: 0.4em;
+                margin-block: 1em;
+                flex-wrap: wrap;
+
+                &::before {
+                    content: 'Your selection :';
+                }
+            }
+
+            [is='virtual-list'] {
+                overflow-y: auto;
+
+                > ul {
+                    position: relative;
+                    margin: 0;
+                    padding: 0;
+
+                    > li {
+                        position: absolute;
+                        display: flex;
+                        align-items: center;
+                        padding-inline: 5px;
+                        white-space: nowrap;
+                        cursor: pointer;
+                        width: 100%;
+
+                        &:hover {
+                            background-color: #eee;
+                        }
+
+                        &.selected {
+                            background-color: #333;
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+
+            .demo-1 [is='virtual-list'] {
+                height: 122px;
+                border: 1px solid lightgray;
+            }
+
+            .demo-2 [is='virtual-list'] {
+                height: 250px;
+                border: 1px solid lightgray;
+
+                & li {
+                    display: flex;
+                    gap: 10px;
+
+                    > b {
+                        background-color: darkgreen, darkblue, darkred,
+                            darkgoldenrod;
+                        color: white;
+                        width: 26px;
+                        height: 26px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 9999px;
+                        flex-shrink: 0;
+                        text-transform: uppercase;
+                        font-size: 0.7em;
+                    }
+
+                    > div {
+                        flex-grow: 1;
+                        flex-shrink: 1;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                    }
+
+                    > em {
+                        flex-shrink: 0;
+                        padding-right: 10px;
+                        &::after {
+                            content: ' %';
+                        }
+                    }
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <h1 class="text-3xl font-bold underline">
+                Web Component: virtual-list
+            </h1>
+
+            <section>
+                <pre><code class="language-html">&lt;div is="virtual-list"&gt;&lt;/div&gt;</code></pre>
+            </section>
+
+            <section>
+                <h2>Styling</h2>
+                <p>
+                    No styles at all in the package, here is a simple starter.
+                    <em>(note: it's pure CSS, not SASS!)</em>
+                </p>
+                <pre><code class="language-css">[is='virtual-list'] {
+    overflow-y: auto;
+    max-height: 200px;
+
+    > ul {
+        position: relative;
+        margin: 0;
+        padding: 0;
+
+        > li {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            padding-inline: 5px;
+            white-space: nowrap;
+            cursor: pointer;
+            width: 100%;
+            overflow: hidden;
+
+            &:hover {
+                background-color: #eee;
+            }
+
+            &.selected {
+                background-color: #333;
+                color: #fff;
+            }
+        }
+    }
+}</code></pre>
+            </section>
+
+            <section class="demo-1">
+                <h2>Basic usage</h2>
+                <pre><code class="language-javascript">const div = document.querySelector('div')
+
+// assign an array to `items` property to populate the list
+div.items = ['item 1', 'item 2', ...]
+
+// then listen to selection
+div.addEventListener('input', () => console.log(div.items[div.selected]))</code></pre>
+                <p>
+                    Populate with
+                    <select>
+                        <option>100</option>
+                        <option>1000</option>
+                        <option>10000</option>
+                        <option>100000</option>
+                    </select>
+                    randomly generated rows.
+                </p>
+                <div is="virtual-list"></div>
+                <output></output>
+            </section>
+
+            <section class="demo-2">
+                <h2>Templated items</h2>
+                <pre><code class="language-javascript">const element = document.querySelector('div')
+
+element.itemHeight = 35 // in px, default to 22
+
+// define the template, it must be a function, returning a string
+element.template = ({ initials, title, num }) =>
+    `&lt;b&gt;${initials}&lt;/b&gt;&lt;div&gt;${title}&lt;/div&gt;&lt;em&gt;${num}&lt;/em&gt;`
+
+// and set corresponding items
+element.items = [
+    {
+        initials: 'DE',
+        title: 'gima ki dary delikuca',
+        num: 27
+    },
+    ...
+]</code></pre>
+                <p>
+                    Populate with
+                    <select>
+                        <option>100</option>
+                        <option>1000</option>
+                        <option>10000</option>
+                        <option>100000</option>
+                    </select>
+                    randomly generated rows.
+                </p>
+                <div is="virtual-list"></div>
+                <output></output>
+            </section>
+        </main>
+
+        <script type="module">
+            import hljs from 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/es/highlight.min.js'
+            import javascript from 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/es/languages/javascript.min.js'
+            import Randorem from 'https://cdn.jsdelivr.net/npm/randorem@1.0.0/index.js'
+            import '../index.js'
+
+            // highlight code block
+            hljs.registerLanguage('javascript', javascript)
+            hljs.highlightAll()
+
+            // Basic usage
+            const demo1 = document.querySelector('.demo-1'),
+                select1 = demo1.querySelector('select'),
+                component1 = demo1.querySelector('[is="virtual-list"]'),
+                output1 = demo1.querySelector('output')
+
+            component1.addEventListener('input', (e) => {
+                output1.innerText = `[${component1.selected}] ${
+                    component1.items[component1.selected]
+                }`
+            })
+
+            select1.addEventListener('input', (e) => {
+                e.stopPropagation()
+                const length = parseInt(select1.value, 10)
+                const data = Array.from({ length }, () =>
+                    Randorem.sentence(),
+                ).sort()
+                component1.items = data
+            })
+
+            // Templated items
+            const demo2 = document.querySelector('.demo-2'),
+                select2 = demo2.querySelector('select'),
+                component2 = demo2.querySelector('[is="virtual-list"]'),
+                output2 = demo2.querySelector('output')
+
+            component2.addEventListener('input', (e) => {
+                output2.innerText = `[${component2.selected}] ${
+                    component2.items[component2.selected].title
+                }`
+            })
+
+            select2.addEventListener('input', (e) => {
+                e.stopPropagation()
+                const length = parseInt(select2.value, 10)
+                const data = Array.from({ length }, () => ({
+                    initials: Randorem.word({ minLetters: 2, maxLetters: 2 }),
+                    color: [
+                        'darkgreen',
+                        'darkblue',
+                        'darkred',
+                        'darkgoldenrod',
+                    ][Math.floor(Math.random() * 4)],
+                    title: Randorem.sentence(),
+                    num: Math.floor(Math.random() * 99 + 1)
+                        .toString()
+                        .padStart(2, '0'),
+                }))
+                component2.template = ({ initials, color, title, num }) =>
+                    `<b style="background-color: ${color}">${initials}</b><div>${title}</div><em>${num}</em>`
+                component2.itemHeight = 35
+                component2.items = data
+            })
+
+            // Start
+            document.addEventListener('DOMContentLoaded', () => {
+                const e = new Event('input')
+                select1.dispatchEvent(e)
+                select2.dispatchEvent(e)
+            })
+        </script>
+    </body>
+</html>

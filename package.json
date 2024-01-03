@@ -1,0 +1,31 @@
+{
+    "name": "vlist",
+    "version": "1.0.0",
+    "description": "Virtual list web component for creating selection lists with a large number of lines. The basic principle is to render the rows currently visible.",
+    "keywords": [
+        "web-component",
+        "custom-element",
+        "virtual-list",
+        "scroll",
+        "fake",
+        "dummy",
+        "text"
+    ],
+    "type": "module",
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Amund/virtual-list.git"
+    },
+    "author": "Dimitri Avenel",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Amund/virtual-list/issues"
+    },
+    "homepage": "https://github.com/Amund/virtual-list#readme",
+    "devDependencies": {
+        "prettier": "^3.1.1",
+        "stylelint": "^16.1.0",
+        "stylelint-config-recess-order": "^4.4.0"
+    }
+}
