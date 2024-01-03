@@ -5,7 +5,7 @@ Virtual list web component for creating selection lists with a large number of l
 ## Install
 
 ```
-$ npm i --save v-list
+$ npm i --save virtual-list
 ```
 
 ## Import
