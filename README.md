@@ -2,6 +2,8 @@
 
 Virtual list web component for creating selection lists with a large number of lines. The basic principle is to render the rows currently visible.
 
+[Check out the demo](https://amund.github.io/virtual-list/)
+
 ## Install
 
 ```
@@ -12,6 +14,9 @@ $ npm i --save @amundsan/virtual-list
 
 ```js
 import '@amundsan/virtual-list'
+
+// ...or, without node_modules pollution
+import 'https://cdn.jsdelivr.net/npm/@amundsan/virtual-list'
 ```
 
 ## Usage
