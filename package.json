@@ -1,6 +1,6 @@
 {
     "name": "@amundsan/virtual-list",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Virtual list web component for creating selection lists with a large number of lines. The basic principle is to render the rows currently visible.",
     "keywords": [
         "web-component",
